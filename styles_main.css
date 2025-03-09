@@ -1,0 +1,84 @@
+body{
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    margin : 0;
+    background-color: rgb(255, 247, 237);
+}
+.question-box{
+   max-width: 600px;
+   margin: 50px;
+   text-align: center;
+}
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    button{
+    background-color: skyblue;
+    margin-bottom: 10px;
+    width: 90%;
+    height: 60px;
+    border-radius: 10px;
+    font-size: 15px ;
+    }
+    button:hover{
+    background-color: greenyellow;
+    }
+}
+
+#nextBtn{
+    background-color:beige;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 5px;
+    box-shadow:2px 2px 2px;
+    font-size: 20px;
+    }
+#nextBtn:hover{
+    background-color: darkgreen;
+    color:white;
+}
+footer{
+    display : flex;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 20em; /* Set the gap between buttons, relative to font size or container */
+    padding: 20px;
+    button{
+        font-family:Arial, Helvetica, sans-serif;
+        background-color: rgba(29, 8, 8, 0.8);
+        color: white;
+        font-size: 15px;
+        border: none;
+        cursor: pointer;
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+    button:hover{
+        background-color: rgba(21, 39, 244, 0.8); /* Darker green background */
+        color: white;
+    }
+}
+/* Style for the top bar */
+.top-bar {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between title and score */
+    align-items: center; /* Vertically center content */
+    padding: 10px 20px; /* Add padding */
+    background-color: rgba(29, 8, 8, 0.8); /* Green background */
+    color: rgb(255, 255, 255); /* White text color */
+    font-size: 1.2rem; /* Adjust font size */
+    position: fixed; /* Fixed to the top of the page */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure it's above other content */
+    box-shadow: 5px 5px 5px 5px rgba(255, 255, 255, 0);
+    .title{
+        font-size: 2rem;
+        margin: 0;
+    }
+}
+.score{
+    font-weight: bold;
+}
