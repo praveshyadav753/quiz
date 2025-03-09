@@ -22,141 +22,163 @@ let category = [
     { id: 29, category: "Entertainment: Comics" },
     { id: 30, category: "Science: Gadgets" },
     { id: 31, category: "Entertainment: Japanese Anime & Manga" },
-    { id: 32, category: "Entertainment: Cartoon & Animations" }
-];
-
-let url = "https://opentdb.com/api.php?amount=10";
-let url2 = ""; 
-let questions = [];
-let currentIndex = 0;
-
-// Page-specific logic
-if (window.location.pathname.includes("index.html")) {
+    { id: 32, category: "Entertainment: Cartoon & Animations" },
+  ];
+  
+  let url = "https://opentdb.com/api.php?amount=10";
+  let url2 = "";
+  let questions = [];
+  let currentIndex = 0;
+  
+  // -------------------- Page-specific Logic --------------------
+  
+  // If on index.html (Setup category and difficulty selection)
+  if (window.location.pathname.includes("index.html")) {
     let categoryDropdown = document.getElementById("category_dropdown");
     let difficultyDropdown = document.getElementById("difficulty_dropdown");
-
-    category.forEach(category => {
-        const option = document.createElement("option");
-        option.value = category.id;
-        option.textContent = category.category;
-        categoryDropdown.appendChild(option);
+  
+    // Populate category dropdown
+    category.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.category;
+      categoryDropdown.appendChild(option);
     });
-
-    categoryDropdown.addEventListener("change", function() {
-        const categorySelected = categoryDropdown.value;
-        if (categorySelected) {
-            url2 = url + "&category=" + categorySelected;
-            localStorage.setItem("url", url2);
-        }
+  
+    // Category selection
+    categoryDropdown.addEventListener("change", function () {
+      const categorySelected = categoryDropdown.value;
+      if (categorySelected) {
+        url2 = url + "&category=" + categorySelected;
+        localStorage.setItem("url", url2);
+      }
     });
-
-    difficultyDropdown.addEventListener("change", function() {
-        const selected_difficulty = difficultyDropdown.value;
-        if (selected_difficulty) {
-            url2 += "&difficulty=" + selected_difficulty + "&type=multiple";
-            localStorage.setItem("url", url2);
-        }
+  
+    // Difficulty selection
+    difficultyDropdown.addEventListener("change", function () {
+      const selectedDifficulty = difficultyDropdown.value;
+      if (selectedDifficulty) {
+        url2 += "&difficulty=" + selectedDifficulty + "&type=multiple";
+        localStorage.setItem("url", url2);
+      }
     });
-}
-
-// On "index_main.html"
-if (window.location.pathname.includes("index_main.html")) {
-    url2 = localStorage.getItem("url");
-
-    if (!url2) {
+  }
+  
+  // -------------------- On "index_main.html" --------------------
+  
+  if (window.location.pathname.includes("index_main.html")) {
+    document.addEventListener("DOMContentLoaded", () => {
+      url2 = localStorage.getItem("url");
+  
+      if (!url2) {
         console.error("No URL found in localStorage.");
-    } else {
+      } else {
         console.log("URL retrieved: ", url2);
         fetchQuestions();
-    }
-}
-
-// Fetch questions from API
-async function fetchQuestions() {
+      }
+  
+      // Ensure "Next" button works
+      const nextBtn = document.getElementById("nextBtn");
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          currentIndex++;
+          console.log("Current Index: ", currentIndex);
+          showQuestion();
+        });
+      }
+    });
+  }
+  
+  // -------------------- Fetch Questions --------------------
+  async function fetchQuestions() {
+    const questionContainer = document.getElementById("question");
+    const optionsContainer = document.getElementById("options");
+  
+    // Show loading shimmer before fetching
+    questionContainer.innerHTML = `<div class="shimmer-container"><div class="shimmer"></div></div>`;
+    optionsContainer.innerHTML = `<div class="shimmer-container"><div class="shimmer"></div></div>`;
+  
     if (!url2) {
-        console.error("URL is empty. Cannot fetch questions.");
-        return;
+      console.error("URL is empty. Cannot fetch questions.");
+      return;
     }
-
+  
     try {
-        const response = await fetch(url2);
-        const data = await response.json();
-        questions = data.results;
-        showQuestion();
+      const response = await fetch(url2);
+      const data = await response.json();
+  
+      // Remove shimmer effect
+      questions = data.results;
+      if (questions.length > 0) {
+        showQuestion();  // Show first question
+      } else {
+        questionContainer.innerText = "No questions found.";
+        optionsContainer.innerHTML = "";
+      }
     } catch (error) {
-        console.error("Failed to fetch questions:", error);
+      console.error("Failed to fetch questions:", error);
+      questionContainer.innerText = "Error loading questions. Try again!";
+      optionsContainer.innerHTML = "";
     }
-}
-
-// Show question
-function showQuestion() {
+  }
+  
+  // -------------------- Show Question --------------------
+  function showQuestion() {
+    console.log("show q " + currentIndex);
+  
     if (currentIndex >= questions.length) {
-        document.getElementById("question").innerText = "Quiz Finished!";
-        document.getElementById("options").innerHTML = "";
-        return;
+      document.getElementById("question").innerText = "Quiz Finished!";
+      document.getElementById("options").innerHTML = "";
+      return;
     }
-
-    const questionData = questions[currentIndex];
-    document.getElementById("question").innerHTML = questionData.question;
-
+  
+    let questionContainer = document.getElementById("question");
+    let optionsContainer = document.getElementById("options");
+  
+    let questionData = questions[currentIndex];
+  
+    // Show actual question
+    questionContainer.innerHTML = `${currentIndex + 1}. ${questionData.question}`;
+  
     let answers = [...questionData.incorrect_answers, questionData.correct_answer];
     answers.sort(() => Math.random() - 0.5);
-
-    let optionsHtml = "";
-    answers.forEach((answer,index) => {
-        const button1 = document.createElement("button");
-        button1.className = "option";
-        button1.id=index
-        button1.textContent = answer;
-        button1.onclick = () => checkAnswer(index);
-
-        optionsHtml.appendChild(button);
-        // optionsHtml += `<br><button.onclick=()>${answer}</button.onclick=>`;
+  
+    optionsContainer.innerHTML = ""; // Clear previous options
+  
+    answers.forEach((answer, index) => {
+      const button = document.createElement("button");
+      button.className = "option";
+      button.id = "option-" + index;
+      button.textContent = answer;
+      button.onclick = () => checkAnswer(index);
+      optionsContainer.appendChild(button);
     });
-    document.getElementById("options").innerHTML = optionsHtml;
-}
-
-
-//Check answer 
-function checkAnswer(selectedIndex){
-    const currentQuestion = questions[currentIndex]; // Get current question
-
-    // Get all the buttons (options)
-    const buttons = Array.from(optionsHTML.children);
-
-    // Loop through the options and update button styles
-    buttons.forEach((button,index) => {
-        const button = document.createElement("button");
-        button.className = "option";
-        button.id=index
-        button.textContent = option;
-        button.onclick = () => checkAnswer(index);
-
-        optionsContainer.appendChild(button);
-        // Disable all buttons after one is selected
-        button.disabled = true;
-
-        // Highlight the correct and incorrect answers
+  }
+  
+  // -------------------- Check Answer --------------------
+  function checkAnswer(selectedIndex) {
+    let optionsContainer = document.getElementById("options");
+    const buttons = Array.from(optionsContainer.children);
+  
+    let currentQuestion = questions[currentIndex];
+  
+    // Check answer and update button styles
+    buttons.forEach((button, index) => {
+      if (index === selectedIndex) {
         if (button.textContent === currentQuestion.correct_answer) {
-            button.style.background = "green"; // Correct answer in green
-        } else if (button.textContent === selectedAnswer) {
-            button.style.background = "red"; // Wrong answer in red
+          button.style.background = "green";
+        } else {
+          button.style.background = "red";
         }
-});
-    // Show feedback
-    let feedbackEl = document.getElementById("feedback");
-    if (selectedAnswer === currentQuestion.correct_answer) {
-        feedbackEl.textContent = "Correct!";
-        feedbackEl.style.color = "green";
-    } else {
-        feedbackEl.textContent = `Wrong! The correct answer is: ${currentQuestion.correct_answer}`;
-        feedbackEl.style.color = "red";
-    }
-
-
-// Next question
-document.getElementById("nextBtn").addEventListener("click", () => {
-    currentIndex++;
-    showQuestion();
-});
-}
+      }
+      button.disabled = true; // Disable all buttons after one is selected
+    });
+  
+    // Highlight the correct answer
+    buttons.forEach((button) => {
+      if (button.textContent === currentQuestion.correct_answer) {
+        button.style.background = "green";
+      }
+    });
+  }
+  
