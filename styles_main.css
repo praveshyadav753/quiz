@@ -6,41 +6,68 @@ body{
     background-color: rgb(255, 247, 237);
 }
 .question-box{
-   max-width: 600px;
-   margin: 50px;
+   width: 80%;
+   padding: 10px;
+   min-height:340px;
+   box-shadow: 1px 2px 15px ;
+   border: solid 2px rgb(202, 201, 201);
+   border-radius: 10px;
+   background-color: rgb(241, 237, 231);
+   display: flex;
+   gap:10px;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 50px;
+   padding: 10px;
    text-align: center;
 }
-.question{
-    width: 100vw;
+#question{
+    padding: 15px;
+    font-size: 24px;
+    text-align: left;
 }
+
 ul{
     list-style-type: none;
     padding: 0;
+    width: 100%;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     button{
-    background-color: skyblue;
-    margin-bottom: 10px;
-    width: 90%;
-    height: 60px;
+    background-color: rgb(231, 236, 238);
+    margin-bottom: 5px;
+    width: 80%;
+    height: 50px;
     border-radius: 10px;
+    border:3px solid rgb(226, 226, 226);
     font-size: 15px ;
-    }
-    button:hover{
-    background-color: greenyellow;
+    transition: scale 0.1s ease-in-out;
+}
+button:not(:disabled):hover {
+    
+    background-color: rgb(84, 146, 228);
+    scale: 1.02;
     }
 }
 
 #nextBtn{
-    background-color:beige;
+    background-color:rgb(51, 127, 226);
     justify-content: center;
     gap: 5px;
+    padding: 1px 10px;
+    border: 1px solid #807373;
     border-radius: 5px;
-    box-shadow:2px 2px 2px;
+    align-self: flex-end;
+    margin-right: 47px;
+    /* box-shadow:1px 1px 7px; */
     font-size: 20px;
     }
 #nextBtn:hover{
-    background-color: darkgreen;
-    color:white;
+    background-color: rgb(40, 101, 180);
+    color:black;
 }
 footer{
     display : flex;
@@ -85,6 +112,15 @@ footer{
 .score{
     font-weight: bold;
 }
+button:disabled {
+    opacity: 0.9;   /* Reduces visibility */
+    color: rgb(39, 38, 38);    /* Changes text color */
+    cursor: not-allowed; /* Shows "not allowed" cursor */
+  }
+  button:disabled:hover{
+    
+  }
+
 
 
 
@@ -92,8 +128,8 @@ footer{
 /* Container for the shimmer effect */
 .shimmer-container {
     width: 100%;
-    height: 50px;
-    background: linear-gradient(45deg, #ebbebe, transparent);
+    height: 100%;
+    background: linear-gradient(45deg, #d6d1d1, gray,rgb(210, 210, 233));
     position: relative;
     overflow: hidden;
     border-radius: 8px;
@@ -106,9 +142,9 @@ footer{
     height: 400px;
     background: linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.8) 50%,
-      rgba(255, 255, 255, 0) 100%
+      rgba(221, 211, 211, 0) 0%,
+      rgba(189, 179, 179, 0.8) 50%,
+      rgba(128, 125, 125, 0) 100%
     );
     position: absolute;
     top: 0;

@@ -65,7 +65,7 @@ let category = [
   }
   
   // -------------------- On "index_main.html" --------------------
-  
+  var score=0
   if (window.location.pathname.includes("index_main.html")) {
     document.addEventListener("DOMContentLoaded", () => {
       url2 = localStorage.getItem("url");
@@ -93,10 +93,14 @@ let category = [
   async function fetchQuestions() {
     const questionContainer = document.getElementById("question");
     const optionsContainer = document.getElementById("options");
+    const nextBtn = document.getElementById("nextBtn");
+
+    // Hide "Next" button while loading
+    if (nextBtn) nextBtn.style.display = "none";
   
     // Show loading shimmer before fetching
-    questionContainer.innerHTML = `<div class="shimmer-container"><div class="shimmer"></div></div>`;
-    optionsContainer.innerHTML = `<div class="shimmer-container"><div class="shimmer"></div></div>`;
+    document.getElementsByClassName("question-box").innerHTML = `<div class="shimmer-container"><div class="shimmer"></div></div>`;
+    // optionsContainer.innerHTML = `<div class="shimmer-container1"><div class="shimmer"></div></div>`;
   
     if (!url2) {
       console.error("URL is empty. Cannot fetch questions.");
@@ -110,9 +114,11 @@ let category = [
       // Remove shimmer effect
       questions = data.results;
       if (questions.length > 0) {
+        if (nextBtn) nextBtn.style.display = "block";
+
         showQuestion();  // Show first question
       } else {
-        questionContainer.innerText = "No questions found.";
+        questionContainer.innerText = "opps!.No questions found.";
         optionsContainer.innerHTML = "";
       }
     } catch (error) {
@@ -124,11 +130,16 @@ let category = [
   
   // -------------------- Show Question --------------------
   function showQuestion() {
+    const nextBtn = document.getElementById("nextBtn");
+
+    document.querySelector(".score").textContent = `Score: ${score}`;
     console.log("show q " + currentIndex);
   
     if (currentIndex >= questions.length) {
-      document.getElementById("question").innerText = "Quiz Finished!";
+      document.getElementById("question").innerHTML = `Quiz Finished! <span> You scored ${score} out of 10</span>`;
       document.getElementById("options").innerHTML = "";
+      if (nextBtn) nextBtn.style.display = "none";
+
       return;
     }
   
@@ -138,8 +149,19 @@ let category = [
     let questionData = questions[currentIndex];
   
     // Show actual question
-    questionContainer.innerHTML = `${currentIndex + 1}. ${questionData.question}`;
-  
+    questionContainer.innerHTML = ""; // Clear previous question
+
+    const questionNumber = document.createElement("span");
+    questionNumber.className='quesnum';
+    questionNumber.textContent = `${currentIndex + 1}. `;
+    
+    const questionText = document.createElement("span");
+    questionText.className='question-text'
+    questionText.innerHTML = questionData.question; // Only use if content is safe
+    
+    questionContainer.appendChild(questionNumber);
+    questionContainer.appendChild(questionText);
+      
     let answers = [...questionData.incorrect_answers, questionData.correct_answer];
     answers.sort(() => Math.random() - 0.5);
   
@@ -165,10 +187,13 @@ let category = [
     // Check answer and update button styles
     buttons.forEach((button, index) => {
       if (index === selectedIndex) {
+        //correct anss
         if (button.textContent === currentQuestion.correct_answer) {
-          button.style.background = "green";
+          button.style.background = "rgb(131 195 137)";
+          score++;
         } else {
-          button.style.background = "red";
+          //false ans
+          button.style.background = "rgb(217 114 114)";
         }
       }
       button.disabled = true; // Disable all buttons after one is selected
@@ -177,7 +202,7 @@ let category = [
     // Highlight the correct answer
     buttons.forEach((button) => {
       if (button.textContent === currentQuestion.correct_answer) {
-        button.style.background = "green";
+        button.style.background = "rgb(131 195 137)";
       }
     });
   }
