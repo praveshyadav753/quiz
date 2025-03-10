@@ -1,0 +1,292 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: rgba(223, 222, 222, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.content {
+    background: beige;
+    padding: 70px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 50%;
+}
+.quizpage{
+    display: none;
+    margin-top: 50px;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+}
+.bottom{
+    width: 100%;
+    line-height: 1rem;
+    height: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#quiz_title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 50px;
+}
+
+.category_option, .difficulty_option {
+    margin: 12px 0;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    background: #f8f8f8;
+    cursor: pointer;
+}
+.option{
+    color: rgb(22, 22, 22);
+}
+
+.start_quiz_option {
+    margin-top: 20px;
+}
+
+button {
+    background: #6a11cb;
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #2575fc;
+    transform: scale(1.05);
+}
+
+
+/* --------------------------------------------------- */
+
+.question-box{
+    width: 65%;
+    padding: 10px;
+    min-height:340px;
+    box-shadow: -1px -5px 20px 0px;
+    border: solid 2px rgb(202, 201, 201);
+    border-radius: 10px 10px 0px 0px;
+    background-color: rgb(248, 248, 248);
+    display: flex;
+    gap:10px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2%;
+    padding: 10px;
+    text-align: center;
+    border-bottom: none;
+
+ }
+ #question{
+     padding: 15px;
+     display: flex;
+     font-size: 22px;
+     text-align: left;
+ }
+ .question-text{
+    margin-left:5px ;
+ }
+ ul{
+     list-style-type: none;
+     padding: 0;
+     width: 100%;
+     margin: 0;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     button{
+     background-color: rgb(231, 236, 238);
+     margin-bottom: 5px;
+     width: 80%;
+     height: 50px;
+     border-radius: 10px;
+     border:3px solid rgb(226, 226, 226);
+     font-size: 15px ;
+     transition: scale 0.1s ease-in-out;
+ }
+ button:not(:disabled):hover {
+     
+     background-color: rgb(84, 146, 228);
+     scale: 1.02;
+     }
+ }
+ 
+ #nextBtn{
+    color: white;
+     }
+ #nextBtn:hover{
+     background-color: rgb(40, 101, 180);
+     color:rgb(247, 247, 247);
+ }
+ footer{
+     display : flex;
+     width: 65%;
+     border-radius:   0px 0px 10px 10px;
+     border-top: none;
+     justify-content: center; /* Center the buttons horizontally */
+     gap: 20em; /* Set the gap between buttons, relative to font size or container */
+     padding: 3px 10px;
+     border: solid 2px rgb(202, 201, 201);
+     box-shadow: 0px 10px 10px 1px rgba(0,0,0,0.3);
+     background-color: rgb(6, 43, 52);
+     button{
+         font-family:Arial, Helvetica, sans-serif;
+         background: linear-gradient(135deg, #6a11cb, #2575fc);
+         color: white;
+         font-size: 15px;
+         border: none;
+         cursor: pointer;
+         padding: 10px 20px;
+         border-radius: 10px;
+     }
+     button:hover{
+        background: linear-gradient(135deg, #521bdb, #1e60e0);
+        color: white;
+     }
+ }
+ .head{
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    border-bottom: solid rgba(170, 168, 168, 0.562);
+ }
+ /* Style for the top bar */
+ .top-bar {
+     display: none; 
+     width: 100%;
+     height: 55px;
+     overflow: hidden;
+     justify-content: space-between; 
+     align-items: center; 
+     padding: 5px 20px; 
+     box-sizing: border-box;
+     background-color: rgb(6, 43, 52); 
+     color: rgb(255, 255, 255); 
+     font-size: 1rem; 
+     position: fixed; 
+     top: 0;
+     left: 0;
+     z-index: 1000; 
+     box-shadow: 1px 1px 2px  rgba(34, 34, 34, 0.5);
+     .title{
+         font-size: 1.5rem;
+         font-weight: 800;
+         margin: 0;
+     }
+ }
+ .score{
+     font-weight: bold;
+ }
+ button:disabled {
+     opacity: 0.9;  
+     color: rgb(39, 38, 38);    
+     cursor: not-allowed; /* Shows "not allowed" cursor */
+   }
+   .div{
+    font-weight: 600;
+    margin-left: 10px;
+   }
+ 
+ #timerDisplay{
+   background-color: rgb(247, 233, 216);
+   text-align: center;
+   margin-top: -5px;
+   margin-bottom: 3px;
+   margin-right: 15px;
+   padding: 3px 5px;
+   font-size: 17px;
+   border-radius: 4px;
+   border : 1px solid rgb(206, 200, 200);
+   font-weight: bold;
+ }
+ 
+ /* shimmer------------------------------------ */
+ .shimmer-container {
+    display: none;
+     width: 103%;
+      min-height: 350px; 
+     background: linear-gradient(45deg, #d6d1d1, rgb(255, 255, 255),rgb(210, 210, 233));
+     position: relative;
+     /* margin-top: 40px; */
+     overflow: hidden;
+     border-radius: 8px;
+     border:1 #ebbebe 
+       }
+   
+   /* Shimmer animation */
+   .shimmer {
+     width: 50%; 
+     height: 400px;
+     background: linear-gradient(
+       90deg,
+       rgba(221, 211, 211, 0) 0%,
+       rgba(189, 179, 179, 0.8) 50%,
+       rgba(128, 125, 125, 0) 100%
+     );
+     position: absolute;
+     top: 0;
+     left: -50%; 
+     animation: shimmer 1.5s infinite; /* Animation duration */
+   }
+   
+   /* Shimmer animation keyframes */
+   @keyframes shimmer {
+     0% {
+       left: -50%; 
+     }
+     100% {
+       left: 100%; 
+     }
+   }
+
+
+   .custom-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f16161;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}

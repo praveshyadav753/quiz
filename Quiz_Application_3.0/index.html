@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Quiz Game</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="top-bar" id="header1">
+        <!-- <div id="timerDisplay">Time left: 15s</div> -->
+        <div class="title">Quiz Game</div>
+        <div class="score" id="scoreelement">Score : 0</div>
+      </div>
+    </header>
+    <!-- selection page -->
+    <div class="content selection-page" id="quizSelection">
+      <div>
+        <h1 id="title">Quiz Game</h1>
+      </div>
+      <div class="category_option">
+        <select name="" id="category_dropdown">
+          <option value="">----Select Category----</option>
+        </select>
+      </div>
+      <div class="difficulty_option">
+        <select name="" id="difficulty_dropdown">
+          <option value="">----Select Difficulty----</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="start_quiz_option">
+        <button id="startquiz">Start Quiz !</button>
+      </div>
+    </div>
+    <div class="custom-alert" id="customAlert">
+      <p id="alertmsg"></p>
+    </div>
+
+    <!------------------------------------ quiz page --------------------------------------------------->
+    <div class="quizpage" id="quizpage">
+      
+      <div class="question-box">
+        <div class="head">
+          <div class="div" id="type"></div>
+          <div id="timerDisplay">Time left:15s</div>
+        </div>
+        <div class="shimmer-container" id="shimmer">
+          <div class="shimmer"></div>
+        </div>
+        <div id="question"></div>
+        <button id="playagain">Play Again</button>
+
+        <ul id="options"></ul>
+        <div class="bottom">
+          <div id="show_answer"></div>
+        </div>
+        
+      </div>
+      <footer>
+        <a href="index.html">
+          <button>Quit</button>
+        </a>
+        
+          <button id="nextBtn">Next</button>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
